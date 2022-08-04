@@ -1,4 +1,4 @@
-# 2chScaper
+# 2chScraper
 Simple python scraper for the Russian imageboard 2ch. Sadly, it has the cloudfare protection, that's why BeautifulSoup was no use.
 
 

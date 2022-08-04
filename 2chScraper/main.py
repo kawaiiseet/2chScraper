@@ -1,6 +1,6 @@
-import cfscrape
-import json
-import wget
+from requests import get
+from json import loads
+from wget import download
 
 print("Enter the thread url: ")
 url = input()
@@ -15,9 +15,9 @@ delimiter = "hk"
 parts = url.split(delimiter)
 base_url = parts[0] + delimiter
 
-scraper = cfscrape.create_scraper()
-result = scraper.get(url).content
-js = json.loads(result)
+scraper = get(url)
+result = scraper.content
+js = loads(result)
 
 for posts in js['threads'][0]['posts']:
     i += 1
@@ -27,7 +27,7 @@ for posts in js['threads'][0]['posts']:
         if ".html" not in ref and ".mp4" not in ref:
             imgUrl = ref
             print(imgUrl)
-            wget.download(base_url+imgUrl, folderPath)
+            download(base_url+imgUrl, folderPath)
     j = -1
 i = -1
 print("Success")

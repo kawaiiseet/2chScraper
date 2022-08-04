@@ -6,6 +6,10 @@ from bs4 import BeautifulSoup
 print("Enter the thread url: ")
 url = input()
 
+i = -1
+j = -1
+folderPath = "C:\\Users\\Свят\\Desktop\\pics"
+
 if ".html" in url:
     url = url.replace(".html", ".json")
 delimiter = "hk"
@@ -17,9 +21,6 @@ result = scraper.get(url).content
 soup = BeautifulSoup(result, 'html.parser')
 js = json.loads(result)
 
-i = -1
-j = -1
-
 for posts in js['threads'][0]['posts']:
     i += 1
     for files in js['threads'][0]['posts'][i]['files']:
@@ -28,6 +29,7 @@ for posts in js['threads'][0]['posts']:
         if ".html" not in ref and ".mp4" not in ref:
             imgUrl = ref
             print(imgUrl)
-            wget.download(base_url+imgUrl, "C:\\Users\\Свят\\Desktop\\pics")
+            wget.download(base_url+imgUrl, folderPath)
     j = -1
 i = -1
+print("Success")

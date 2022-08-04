@@ -1,7 +1,6 @@
 import cfscrape
 import json
 import wget
-from bs4 import BeautifulSoup
 
 print("Enter the thread url: ")
 url = input()
@@ -18,7 +17,6 @@ base_url = parts[0] + delimiter
 
 scraper = cfscrape.create_scraper()
 result = scraper.get(url).content
-soup = BeautifulSoup(result, 'html.parser')
 js = json.loads(result)
 
 for posts in js['threads'][0]['posts']:

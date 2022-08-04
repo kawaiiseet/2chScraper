@@ -3,6 +3,6 @@ Simple python scraper for the Russian imageboard 2ch. Sadly, it has the cloudfar
 
 
 How to use:
-1. Enter thread url
+1. Enter thread's url
 2. Enter your folder path in local variable "folderPath"
 3. Wait for "Success" message

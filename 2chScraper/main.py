@@ -1,9 +1,11 @@
+import urllib.request
 from os import makedirs
 from os.path import exists
 
 from requests import get
 from json import loads
 from wget import download
+
 if __name__ == '__main__':
     def main():
         print("Enter the thread url: ")
@@ -11,8 +13,8 @@ if __name__ == '__main__':
 
         i = -1
         j = -1
-        folder_path = "C:\\Users\\Свят\\Desktop\\pics"
-
+        folder_path = "" # your folder path with '//' at the end
+        header = {"User-Agent": "Mozilla/5.0"}
         if ".html" in url:
             url = url.replace(".html", ".json")
         delimiter = "hk"
@@ -26,15 +28,18 @@ if __name__ == '__main__':
         if not exists(folder_path):
             makedirs(folder_path)
 
-        for _ in js['threads'][0]['posts']:
-            i += 1
-            for _ in js['threads'][0]['posts'][i]['files']:
-                j += 1
-                ref = js['threads'][0]['posts'][i]['files'][j]['path']
-                if ".html" not in ref and ".mp4" not in ref:
-                    img_url = base_url + ref
-                    print(img_url)
-                    download(img_url, folder_path)
-            j = -1
+        for post in js['threads'][0]['posts']:
+            if post['files'] is not None:
+                for file in post['files']:
+                    ref = file['path']
+                    full_name = file['fullname']
+                    j += 1
+                    if ".html" not in ref and ".mp4" not in ref:
+                        img_url = base_url + ref
+                        print(img_url)
+                        image = get(img_url, headers=header, stream=True).content
+                        with open(folder_path + full_name, 'wb') as handler:
+                            handler.write(image)
         print("Success")
+
 main()

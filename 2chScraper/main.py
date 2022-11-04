@@ -32,9 +32,9 @@ if __name__ == '__main__':
                 j += 1
                 ref = js['threads'][0]['posts'][i]['files'][j]['path']
                 if ".html" not in ref and ".mp4" not in ref:
-                    img_url = ref
+                    img_url = base_url + ref
                     print(img_url)
-                    download(base_url+img_url, folder_path)
+                    download(img_url, folder_path)
             j = -1
         print("Success")
 main()
